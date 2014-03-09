@@ -1,0 +1,841 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>EtherCalc: 多人即時協作試算表</title>
+<link rel="stylesheet" type="text/css" class="ui" href="./css/semantic.min.css">
+<style>
+.book { text-align:left;display:block;padding-left:10%;padding-right:10%; }
+.book a { text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap; }
+.book h2 { text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;font-size:24px;line-height:36px;text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px;  }
+.book h3 { text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;line-height:27px;font-size:20px;margin: 18px 0px;  }
+.book p {
+text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; 
+}
+.book pre {
+background: #F8F8F8;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+font-size: 18px;
+padding: 6px 10px;
+line-height: 150%;
+}
+
+</style>
+</head>
+<body>
+<meta name="description" content="EtherCalc: 多人即時協作試算表"/>
+
+<div class="body" style="vertical-align:bottom;min-height:23155px;text-align:left;font-size:13px;line-height:18px;color:rgb(51, 51, 51);font-family:'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:60px;padding-bottom:40px;overflow-x:visible;overflow-y:visible;margin: 0px; ">
+<div style="text-align:left;overflow-x:visible;overflow-y:visible;color:rgb(153, 153, 153);position:absolute;right:0px;left:0px;z-index:1030;margin-bottom:0px;top:0px;">
+<div style="text-align:left;background-color: rgb(44, 44, 44); background-size: 100% 105%;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAAoCAYAAABgrYjLAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAASdJREFUeJzt29EJgDAQBUEVO7r+a4tVBCE7U0F+89i7Z2ZdAAAAwNHetfz/AQAA4HTP3w8AAAAA9jMAAAAAQIATAAAAAAhQAAAAAECAAgAAAAACFAAAAAAQoAAAAACAAAUAAAAABBgAAAAAIMAJAAAAAAQoAAAAACBAAQAAAAABCgAAAAAIUAAAAABAgAIAAAAAAgwAAAAAEOAEAAAAAAIUAAAAABCgAAAAAIAABQAAAAAEKAAAAAAgQAEAAAAAAQYAAAAACHACAAAAAAEKAAAAAAhQAAAAAECAAgAAAAACFAAAAAAQoAAAAACAAAMAAAAABDgBAAAAgAAFAAAAAAQoAAAAACBAAQAAAAABCgAAAAAIUAAAAABAgAEAAAAAApwAAAAAQMAHE0c01zM+wNUAAAAASUVORK5CYII=);-webkit-box-shadow:rgba(0, 0, 0, 0.246094) 0px 1px 3px, rgba(0, 0, 0, 0.0976562) 0px -1px 0px inset;box-shadow:rgba(0, 0, 0, 0.246094) 0px 1px 3px, rgba(0, 0, 0, 0.0976562) 0px -1px 0px inset;padding-left:0px;padding-right:0px;border-top-left-radius:0px 0px;border-top-right-radius:0px 0px;border-bottom-right-radius:0px 0px;border-bottom-left-radius:0px 0px;background-repeat: repeat-x; ">
+<div style="text-align:left;margin-left:auto;margin-right:auto;width:940px;"><span style="display:table;"></span>
+<a style="text-decoration:none;font-size:13px;line-height:18px;color:rgb(51, 51, 51);text-align:center;text-shadow:rgba(255, 255, 255, 0.746094) 0px 1px 1px;vertical-align:middle;border-top-left-radius:4px 4px;border-top-right-radius:4px 4px;border-bottom-right-radius:4px 4px;border-bottom-left-radius:4px 4px;cursor:pointer;display:none;float:right;background-color: rgb(44, 44, 44); background-size: 100% 105%;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABpJREFUWIXtwQEBAAAAgiD/r25IQAEAAADvBhAgAAFHAaCIAAAAAElFTkSuQmCC);-webkit-box-shadow:rgba(255, 255, 255, 0.0976562) 0px 1px 0px inset, rgba(255, 255, 255, 0.0742188) 0px 1px 0px;box-shadow:rgba(255, 255, 255, 0.0976562) 0px 1px 0px inset, rgba(255, 255, 255, 0.0742188) 0px 1px 0px;background-repeat: repeat-x; border-width: 1px; border-style: solid; margin: 5px 5px 0px; padding: 7px 10px; border-color: rgba(0, 0, 0, 0.0976562) rgba(0, 0, 0, 0.0976562) rgba(0, 0, 0, 0.246094); ">
+</a>
+<div class="ui menu top inverted">
+<a class="item" href="#"><i class="icon table"></i>EtherCalc</a>
+<a class="item" href="http://www.ethercalc.org/_new" target="_blank"><i class="icon edit"></i>試用</a>
+<a class="item" href="#install"><i class="icon terminal"></i>安裝</a>
+<a class="item" href="#preso"><i class="icon video"></i>簡報</a>
+<a class="item" href="#preso-en"><i class="icon video"></i>Slides</a>
+<a class="item" href="https://github.com/audreyt/ethercalc" target="_blank"><i class="icon github"></i>GitHub</a>
+<a class="item" href="#book"><i class="icon fighter jet"></i>系統架構</a>
+<a class="item" href="#book2"><i class="icon rocket"></i>效能架構</a>
+</div>
+<span style="display:table;clear:both;"></span></div>
+</div>
+</div>
+<div style="text-align:left;width:940px;margin-left:auto;margin-right:auto;"><span style="display:table;"></span>
+<section style="text-align:left;display:block;">
+<div style="text-align:left;margin-bottom:30px;border-top-left-radius:6px 6px;border-top-right-radius:6px 6px;border-bottom-right-radius:6px 6px;border-bottom-left-radius:6px 6px;background-color: rgb(238, 238, 255); padding: 60px; ">
+<div style="text-align:left;margin-left:-20px;"><span style="display:table;"></span>
+<div style="text-align:left;float:left;margin-left:20px;width:380px;">
+<div style="text-align:left;font-size:18px;font-weight:200;line-height:27px;color:inherit;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">
+</div><h1 style="text-align:left;font-family:inherit;font-weight:bold;text-rendering:optimizelegibility;font-size:60px;line-height:1;color:inherit;letter-spacing:-1px;display:inline-block;border-top-left-radius:10px 10px;border-top-right-radius:10px 10px;border-bottom-right-radius:10px 10px;border-bottom-left-radius:10px 10px;-webkit-box-shadow:rgb(136, 136, 136) 3px 3px 3px;box-shadow:rgb(136, 136, 136) 3px 3px 3px;background-color: rgb(17, 65, 117); margin: 0px 0px 10px; padding: 10px; "><span style="text-align:left;color:rgb(179, 226, 255);">Ether</span><span style="text-align:left;color:rgb(232, 244, 255);">Calc</span></h1>
+<h2 style="text-align:left;color:inherit;text-rendering:optimizelegibility;font-size:24px;line-height:36px;font-weight:normal;font-family:ct5;visibility:visible;margin: 0px 0px 20px; ">即時協作試算表</h2>
+<div style="text-align:left;font-size:18px;font-weight:200;line-height:27px;color:inherit;font-family:ct4;visibility:visible;margin: 0px 0px 9px; ">
+您可在網頁上建立試算表，讓許多人同時編輯。 </div>
+<div style="text-align:left;font-size:18px;font-weight:200;line-height:27px;color:inherit;font-family:ct4;visibility:visible;margin: 0px 0px 9px; ">每次更動都會隨時反映在所有人的螢幕上。
+</div>
+<div style="text-align:left;font-size:18px;font-weight:200;line-height:27px;color:inherit;font-family:ct4;visibility:visible;margin: 0px 0px 9px; ">
+現在就來試試看吧！ </div>
+</div><div style="text-align:left;float:left;margin-left:20px;width:380px;"><img src="https://ethercalc.org/static/img/davy/gfx/screenshot.png" style="width:456px;text-align:left;height:auto;vertical-align:middle;max-width:120%;border-top-left-radius:10px 10px;border-top-right-radius:10px 10px;border-bottom-right-radius:10px 10px;border-bottom-left-radius:10px 10px;-webkit-box-shadow:rgb(136, 136, 136) 5px 5px 3px;box-shadow:rgb(136, 136, 136) 5px 5px 3px;border-width: 0px; border-style: none; border-color: white; "/></div>
+<span style="display:table;clear:both;"></span></div>
+<div style="text-align:left;font-size:18px;font-weight:200;line-height:27px;color:inherit;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><a href="http://www.ethercalc.org/_new" target="_blank" style="text-decoration:none;display:inline-block;margin-bottom:0px;text-align:center;vertical-align:middle;cursor:pointer;font-size:15px;line-height:normal;border-top-left-radius:5px 5px;border-top-right-radius:5px 5px;border-bottom-right-radius:5px 5px;border-bottom-left-radius:5px 5px;text-shadow:rgba(0, 0, 0, 0.246094) 0px -1px 0px;color:rgb(255, 255, 255);background-color: rgb(0, 116, 204); background-size: 100% 105%;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEoAAAASCAYAAAD8DUjrAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAFBJREFUWIXt1dsJADAIxVAL7t7lulIfIzR/IuRMIOGCI+a6oa+MXX1CD4aCDAUZCjIUlHGqT+jBRUGGggwFGQoyFOTXg1wUZCjIUJChIENBD8m9E2cLZupwAAAAAElFTkSuQmCC);-webkit-box-shadow:rgb(136, 136, 136) 2px 2px 3px;box-shadow:rgb(136, 136, 136) 2px 2px 3px;font-family:ct4;visibility:visible;background-repeat: repeat-x; border-width: 1px; border-style: solid; padding: 9px 14px; border-color: rgba(0, 0, 0, 0.0976562) rgba(0, 0, 0, 0.0976562) rgba(0, 0, 0, 0.246094); ">線上試用 »</a></div>
+<a target="_blank" href="https://ethercalc.org/privacy.png">Terms of Service &amp; Privacy Policy</a>
+</div>
+<section style="text-align:left;display:block;padding-left:10%;padding-right:10%;">
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h1 id="install" style="text-align:left;font-family:inherit;color:inherit;text-rendering:optimizelegibility;font-size:30px;line-height:1;font-weight:normal;margin: 0px; ">安裝</h1>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><strong style="text-align:left;font-weight:bold;">EtherCalc</strong>
+是自由軟體，可在 GNU/Linux、FreeBSD、Mac OS X 和 Windows 上運行。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">請先下載並安裝
+<a href="http://nodejs.org/#download" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Node.js</a>，再鍵入以下指令即可：
+</div><pre style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;color:rgb(51, 51, 51);display:block;background-color: rgb(245, 245, 245); border-top-left-radius:4px 4px;border-top-right-radius:4px 4px;border-bottom-right-radius:4px 4px;border-bottom-left-radius:4px 4px;white-space:pre-wrap;word-break:break-all;word-wrap:break-word;font-size:16px;line-height:150%;border-width: 1px; border-style: solid; margin: 0px 0px 9px; padding: 8.5px; border-color: rgba(0, 0, 0, 0.148438); ">npm install ethercalc
+./node_modules/ethercalc/bin/ethercalc
+</pre>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">
+想要安裝給所有使用者時，也可以使用 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">sudo</code>
+加上 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">npm install -g</code>
+參數來安裝： </div>
+<pre style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;color:rgb(51, 51, 51);display:block;background-color: rgb(245, 245, 245); border-top-left-radius:4px 4px;border-top-right-radius:4px 4px;border-bottom-right-radius:4px 4px;border-bottom-left-radius:4px 4px;white-space:pre-wrap;word-break:break-all;word-wrap:break-word;font-size:16px;line-height:150%;border-width: 1px; border-style: solid; margin: 0px 0px 9px; padding: 8.5px; border-color: rgba(0, 0, 0, 0.148438); ">npm install -g ethercalc
+ethercalc
+</pre>
+<div style="text-align:left;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:20px;line-height:150%;padding-bottom:10px;margin: 0px 0px 9px; "></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">如果本機上有
+<a href="http://redis.io/" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Redis</a>
+伺服器正在運行，EtherCalc 會優先使用它來儲存資料，以增進效能。</div>
+</section>
+<div style="float: right; width:425px; margin-left: 10px" id="__ss_12539343"> <strong style="display:block;margin:12px 0 4px"><a href="http://www.slideshare.net/autang/ethercalc-the-video" title="EtherCalc: The Video" target="_blank">EtherCalc: The Video - 中文</a></strong> <iframe src="http://www.slideshare.net/slideshow/embed_code/12539343?rel=0" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></div>
+
+
+<section style="text-align:left;display:block;padding-left:10%;padding-right:10%;">
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h1 id="preso" style="text-align:left;font-family:inherit;color:inherit;text-rendering:optimizelegibility;font-size:30px;line-height:1;font-weight:normal;margin: 0px; ">簡報</h1>
+</div>
+<ul style="text-align:left;list-style: disc outside none; margin: 0px 0px 9px 25px; padding: 0px; ">
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><a href="ethercalc.key" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">下載 Keynote 簡報檔</a>
+(15MB)</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><a href="ethercalc.mov" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">下載 QuickTime 影片</a>
+(58MB)</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><a href="ethercalc.pdf" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">下載 PDF 簡報檔</a>
+(20MB)</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><a href="http://www.slideshare.net/autang/ethercalc" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">線上瀏覽 PDF 簡報檔</a>
+(SlideShare)</li>
+</ul>
+</section>
+<section style="text-align:left;display:block;padding-left:10%;padding-right:10%;">
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h1 id="preso-en" style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;font-size:30px;line-height:1;margin: 0px; ">Slides</h1>
+</div>
+<ul style="text-align:left;list-style: disc outside none; margin: 0px 0px 9px 25px; padding: 0px; ">
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><a href="ethercalc-en.key" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Download Keynote slides</a>
+(15MB)</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><a href="ethercalc-en.odp" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Download OpenDocument slides</a>
+(15MB)</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><a href="ethercalc-en.pdf" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Download PDF slides</a>
+(20MB)</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><a href="http://www.slideshare.net/autang/ethercalc-multiplayer-spreadsheet-12641848" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">View PDF slides online</a>
+(SlideShare)</li>
+</ul>
+</section>
+<section style="text-align:left;display:block;padding-left:10%;padding-right:10%;">
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h1 id="book" style="text-align:left;font-family:inherit;color:inherit;text-rendering:optimizelegibility;font-size:30px;line-height:1;font-weight:normal;margin: 0px; ">系統架構</h1>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">
+以下是<a href="http://aosabook.org/" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">《開源應用程式架構》</a>SocialCalc 章節的中文譯本，全文採用
+<a style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">CC0 條款</a>，屬於公眾領域。
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">
+如果您願意<a href="http://www.aosabook.org/en/index.html#purchase" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">購買本書</a>，作者的全部版稅將捐贈給<a href="http://amnesty.org/" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">國際特赦組織</a>。
+</div>
+</section>
+<section style="text-align:left;display:block;padding-left:10%;padding-right:10%;">
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h2 id="ch1" style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;font-size:24px;line-height:36px;margin: 0px; ">緣起</h2>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">試算表的應用歷史，已經超過 30 年了。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">第一個試算表程序 VisiCalc 是由 Dan Bricklin 在 1978 年著手開發，於 1979 年問世。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">最初的設計非常直接了當：可以在兩個維度上任意擴展的表格，其中每個儲存格可以存放文字、數字，以及公式。公式由普通的數學運算操作以及各種內建函數組成，並能使用其他儲存格的值作為參數。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">試算表的理念看似簡單，但卻可應用於各種不同的實務領域：會計、庫存清單、建模預測、列表管理... 不同用法有著幾乎無限的可能性。這些應用使得 VisiCalc 成為第一款個人電腦領域裡的「殺手級程序」。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">在隨後的幾十年裡，雖然 Lotus 1-2-3 及 Excel 等後繼者提出了各種改進，但核心原理都是相同的；大部分試算表都以硬碟檔案的形式保存，並在打開或編輯時讀入記憶體。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">在基於檔案的模式下，協作顯得異常困難，主要難點體現在：</div>
+<ul style="text-align:left;list-style: disc outside none; margin: 0px 0px 9px 25px; padding: 0px; ">
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">每位使用者都需要安裝特定版本的試算表編輯器。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">電子郵件往來、共享文件夾，或安裝一套專用的版本控制系統，都會增加額外的管理成本。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">變動追蹤功能非常有限；舉例來說，Excel 無法對格式和單元格注釋內容的變動保留歷史記錄。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">更新模板中的格式或公式後，還需對使用該公式的所有試算表文件進行更繁瑣的手工更新。</li>
+</ul>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">好在一種新的協作模式出現了，可以用非常簡單的方式解決這些問題。這就是<strong style="text-align:left;font-weight:bold;">共筆</strong>模式，由 Ward Cunningham 於 1994 年開發，並由維基百科在 21 世紀前期使其廣為人知。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">與檔案模式不同，共筆模式以保存在伺服器上的<strong style="text-align:left;font-weight:bold;">頁面</strong>為基礎，不需要任何額外的軟體即可在瀏覽器中編輯。這些超文本頁面可以直接相互鏈接，甚至可以包含某個大型頁面中的部分內容。預設情況下，所有參與者都可查看並編輯<strong style="text-align:left;font-weight:bold;">最新版本</strong>，並可在伺服器上自動保存版本修訂的歷史紀錄。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">受到共筆模式的啟發，Dan Bricklin 從 2005 年開始著手開發 <strong style="text-align:left;font-weight:bold;">wikiCalc</strong>。它結合了共筆系統的易於創建、多人編輯等特性，而仍然保有試算表系統中常用的視覺格式和計算理念。</div>
+</section>
+<section style="text-align:left;display:block;padding-left:10%;padding-right:10%;">
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h2 id="ch2" style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;font-size:24px;line-height:36px;margin: 0px; ">WikiCalc</h2>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">WikiCalc 一問世就帶來許多獨特的功能，是同時期的試算表所沒有的：</div>
+<ul style="text-align:left;list-style: disc outside none; margin: 0px 0px 9px 25px; padding: 0px; ">
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">純文字、HTML，以及共筆式的文本標記支援。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">共筆文字包含插入鏈接、圖片，以及和從儲存格引用值的功能。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">公式儲存格可以引用放在其他網站的 WikiCalc 網頁裡的值。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">支援輸出到靜態網頁，以及將動態資料內嵌至其他網頁。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">儲存格能使用 CSS 來改變樣式。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">記錄所有編輯操作，以供稽核紀錄。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">和共筆系統一樣，保留每一個版本，並可以隨時回復。</li>
+</ul>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">從幾個小型試算表組建一個<strong style="text-align:left;font-weight:bold;">主試算表</strong>的能力，是 WikiCalc 的一大強項。舉例來說，每位銷售員可以把營業額放在自己的試算表頁面裡；然後銷售經理可以綜合這些資料到該區的試算表中，之後銷售副總再綜合各區域的數字，構成主試算表。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">每次有試算表更新時，所有綜合它的試算表都會即時反映出這次更新。如果主試算表的讀者想要瞭解更多細節，只需要點擊鏈結，即可查看試算表後面的試算表。這項功能讓使用者不再需要在多個地方更新數字，從而減少了多餘而容易出錯的操作，並確保所有資訊的視圖總在最新狀態。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="wikicalc-components.png" style="width:443px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">為了即時重新計算的需求，WikiCalc 採用了<strong style="text-align:left;font-weight:bold;">輕客戶端</strong>的設計，將所有要顯示的資訊都放在伺服器端。每個試算表在瀏覽器上以 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">&#60;table&#62;</code> 元素呈現；編輯儲存格時，瀏覽器會發送一個 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">ajaxsetcell</code> 指令到伺服器，然後伺服器告訴瀏覽器哪個儲存格需要更新。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="wikicalc-flow.png" style="width:438px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">當然，這項設計依賴於瀏覽器與伺服器之間的快速連接。當網路出現延遲的時候，使用者在更新儲存格和看到它的新內容之間，會看到 <em style="text-align:left;font-style:italic;">Loading...</em> 訊息頻繁出現；這問題對於需要即時調整、預覽公式結果的使用者特別嚴重。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="wikicalc-loading.png" style="width:353px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">此外，因為 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">&#60;table&#62;</code> 元素與試算表有著相同大小，一個 100x100 試算表會在 DOM 裡創建上萬個 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">&#60;td&#62;</code> 元素，大量消耗瀏覽器的記憶資源，進一步限制頁面的大小。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">由於這些缺點，雖然 WikiCalc 作為在本地主機運行的獨立伺服器時尚稱實用，但要當作網頁內容管理系統的一部分，卻超出了它的能力。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">在 2006 年，Dan Bricklin 與 Socialtext 團隊開始開發 SocialCalc 專案，用 JavaScript 語言對 WikiCalc 原本的 Perl 源碼作出改寫，目標是能支援大型試算表、分散式協作流程，以及與桌面應用程式一樣的操作界面。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">這裡是 SocialCalc 的一些設計目標：</div>
+<ul style="text-align:left;list-style: disc outside none; margin: 0px 0px 9px 25px; padding: 0px; ">
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">處理十萬個儲存格的能力。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">進行編輯操作時提供快速回應。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">客戶端的稽核紀錄和還原/重作支援。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">善用 Javascript 和 CSS ，提供完整的視覺呈現功能。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">用 Javascript 提昇效能，並加強對各種不同瀏覽器的支援。</li>
+</ul>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">經過三年的開發和發佈許多次測試版之後，Socialtext 在 2009 年釋出 SocialCalc 1.0，成功實現了設計目標。現在，讓我們來看看 SocialCalc 的系統架構。</div>
+</section>
+<section style="text-align:left;display:block;padding-left:10%;padding-right:10%;">
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h2 id="ch3" style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;font-size:24px;line-height:36px;margin: 0px; ">SocialCalc</h2>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">這是 SocialCalc 在運行過程中的畫面：</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="socialcalc-screenshot.png" style="width:427px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">底下則是它的類型圖：</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="socialcalc-class-diagram.png" style="width:500px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">相較於 WikiCalc，伺服器的角色已大幅減輕。現在伺服器只需要負責回應 HTTP GET 請求，提供整份表格內容的序列化字串即可。瀏覽器在收到資料後，所有計算、變動追蹤，以及使用者的互動都是通過 JavaScript 達成的。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">JavaScript 元件在設計上使用了層次式 MVC（模型/視圖/控制器）樣式，每個類型都只專注於某部分的功能：</div>
+<ul style="text-align:left;list-style: disc outside none; margin: 0px 0px 9px 25px; padding: 0px; ">
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><strong style="text-align:left;font-weight:bold;">Sheet</strong> 是資料模型，代表試算表在記憶體中的結構。 
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">模型中包含從座標指向 <strong style="text-align:left;font-weight:bold;">Cell</strong> 物件的字典，每個物件代表一個儲存格。空儲存格所在的座標不需要有對映的物件，因此完全不占用記憶體。</div>
+</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><strong style="text-align:left;font-weight:bold;">Cell</strong> 代表儲存格的內容和格式。 
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">下面列出的是一些常見的 <strong style="text-align:left;font-weight:bold;">Cell</strong> 物件屬性：</div>
+<pre style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;color:rgb(51, 51, 51);display:block;background-color: rgb(245, 245, 245); border-top-left-radius:4px 4px;border-top-right-radius:4px 4px;border-bottom-right-radius:4px 4px;border-bottom-left-radius:4px 4px;white-space:pre-wrap;word-break:break-all;word-wrap:break-word;font-size:16px;line-height:150%;border-width: 1px; border-style: solid; margin: 0px 0px 9px; padding: 8.5px; border-color: rgba(0, 0, 0, 0.148438); ">    datatype    t
+    datavalue   1Q84
+    color       black
+    bgcolor     white
+    font        italic bold 12pt Ubuntu
+    comment     Ichi-Kyu-Hachi-Yon</pre>
+</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><strong style="text-align:left;font-weight:bold;">RenderContext</strong> 用於實現視圖，需要負責將表格繪製為相應的 DOM 物件。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><strong style="text-align:left;font-weight:bold;">TableControl</strong> 則是主控制器，負責接收滑鼠和鍵盤事件。 
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">在接收到視圖事件，例如滾動和調整大小後，就會對相關 <strong style="text-align:left;font-weight:bold;">RenderContext</strong> 物件進行更新。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">如果收到應用於試算表內容的更新事件，則會在試算表的指令佇列中加入新的指令。</div>
+</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><strong style="text-align:left;font-weight:bold;">SpreadSheetControl</strong> 負責繪制頂層界面，包括工具欄、狀態欄、對話框，以及顏色選擇器。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><strong style="text-align:left;font-weight:bold;">SpreadSheetViewer</strong> 是另一套頂層界面，主要提供唯讀的互動視圖。</li>
+</ul>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">我們採用了基於類型的輕量級物件系統，僅使用了簡單的組成/委派機制，完全沒有使用繼承或物件原型。所有符號都位於 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">SocialCalc.*</code> 名稱空間裡，以避免命名衝突。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">對試算表的全部更新都需要通過 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">ScheduleSheetCommands</code> 方法進行，因此需要通過指令字串來代表編輯操作。常用的指令如下：</div>
+<pre style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;color:rgb(51, 51, 51);display:block;background-color: rgb(245, 245, 245); border-top-left-radius:4px 4px;border-top-right-radius:4px 4px;border-bottom-right-radius:4px 4px;border-bottom-left-radius:4px 4px;white-space:pre-wrap;word-break:break-all;word-wrap:break-word;font-size:16px;line-height:150%;border-width: 1px; border-style: solid; margin: 0px 0px 9px; padding: 8.5px; border-color: rgba(0, 0, 0, 0.148438); ">    set     sheet defaultcolor blue
+    set     A width 100
+    set     A1 value n 42
+    set     A2 text t Hello
+    set     A3 formula A1*2
+    set     A4 empty
+    set     A5 bgcolor green
+    merge   A1:B2
+    unmerge A1
+    erase   A2
+    cut     A3
+    paste   A4
+    copy    A5
+    sort    A1:B9 A up B down
+    name    define Foo A1:A5
+    name    desc   Foo Used in formulas like SUM(Foo)
+    name    delete Foo
+    startcmdextension UserDefined args</pre>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">嵌入 SocialCalc 的應用程序可以自行定義額外的指令，只需要將命名的回調函數添加到 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">SocialCalc.​SheetCommandInfo.​CmdExtensionCallbacks</code> 物件，即可使用 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">startcmdextension</code> 指令進行呼叫。</div>
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h3 style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;line-height:27px;font-size:20px;margin: 0px; ">指令的循環運行</h3>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">為改善回應速度，SocialCalc 會在背景執行全部的重算和 DOM 更新，因此在使用者對多個儲存格進行修改時，試算表引擎會同時在指令佇列裡處理先前的改動。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">在運行指令時，<strong style="text-align:left;font-weight:bold;">TableEditor</strong> 物件會將其 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">busy</code> 屬性設為 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">true</code>；後續指令則需加入到 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">deferredCommands</code> 佇列，以確保指令能循序執行。事件循環看起來像這樣：</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="socialcalc-command-runloop.png" style="width:500px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">如上圖所示，<strong style="text-align:left;font-weight:bold;">Sheet</strong> 物件會持續發送 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">StatusCallback</code> 事件，以提醒使用者當前的指令執行狀態，這一過程都可以分為下列四個步驟：</div>
+<ul style="text-align:left;list-style: disc outside none; margin: 0px 0px 9px 25px; padding: 0px; ">
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">執行指令 
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">啟動時發送 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">cmdstart</code>，執行完成後則發送 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">cmdend</code>。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">如果指令間接更改了某儲存格的值，則進入<strong style="text-align:left;font-weight:bold;">重算</strong>步驟。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">否則，如果指令更改了一個或多個已在螢幕上顯示的儲存格的視覺外觀，則進入<strong style="text-align:left;font-weight:bold;">繪製</strong>步驟。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">如果上述情況都不符合（例如在使用<code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">copy</code>指令時），則跳到<strong style="text-align:left;font-weight:bold;">位置計算</strong>步驟。</div>
+</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">重算（如果需要的話） 
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">啟動時發送 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">calcstart</code>，在檢查儲存格的依存鏈時每隔 100ms 發送 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">calcorder</code>，完成檢查時則發送 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">calccheckdone</code>，並在所有受影響儲存格獲得重算後的值後發送 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">calcfinished</code>。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">這一步驟之後總是需要執行<strong style="text-align:left;font-weight:bold;">繪製</strong>步驟。</div>
+</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">繪製（如果需要的話） 
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">啟動時發送 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">schedrender</code>，如果使用格式化後的儲存格更新了 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">&#60;table&#62;</code> DOM 物件，則發送 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">renderdone</code>。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">這一步驟之後總是需要執行<strong style="text-align:left;font-weight:bold;">位置計算</strong>步驟。</div>
+</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">位置計算 
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">啟動時發送 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">schedposcalc</code>，並在更新了滾動條、<strong style="text-align:left;font-weight:bold;">目前儲存格</strong>游標，以及 <strong style="text-align:left;font-weight:bold;">TableEditor</strong> 的其他視覺組件後發送 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">doneposcalc</code>。</div>
+</li>
+</ul>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">因為所有指令在執行後即被保存，因此等於對所有操作都可獲得<strong style="text-align:left;font-weight:bold;">執行紀錄</strong>。為實現稽核追蹤，<code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">Sheet.CreateAuditString</code> 方法會傳回以換行隔開的字符串，每行內容對應到一個指令的相關記錄。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">ExecuteSheetCommand</code> 還可為執行的每個指令創建<strong style="text-align:left;font-weight:bold;">還原指令</strong>。舉例來說，如果儲存格 A1 包含 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">Foo</code>，而使用者執行了 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">set A1 text Bar</code>，則還原指令<code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">set A1 text Foo</code> 會被推送到 <strong style="text-align:left;font-weight:bold;">UndoStack</strong> 裡。如果使用者進行還原操作，則會通過執行還原指令來讓 A1 的內容回到原先的值。</div>
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h3 style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;line-height:27px;font-size:20px;margin: 0px; ">試算表編輯器</h3>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">接著一起來看看 <strong style="text-align:left;font-weight:bold;">TableEditor</strong> 層。該層可計算 <strong style="text-align:left;font-weight:bold;">RenderContext</strong> 的螢幕顯示內容，並通過兩個 <strong style="text-align:left;font-weight:bold;">TableControl</strong> 實例來管理水平/垂直捲動軸。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="socialcalc-parts.png" style="width:402px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">視圖層主要由 <strong style="text-align:left;font-weight:bold;">RenderContext</strong> 類型負責。與 WikiCalc 的設計不同的是，我們並非將每個儲存格對映到一個 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">&#60;td&#62;</code> 元素，而是直接創建固定大小的 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">&#60;table&#62;</code>，使它充分填滿瀏覽器的可視區域，並為其預先填充 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">&#60;td&#62;</code> 元素。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">當使用者通過自定義的滾動條拖動試算表後，可以動態更新預先繪制的 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">&#60;td&#62;</code> 元素的 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">innerHTML</code>。這意味著在很多常見情況下，我們並不需要創建/刪除任何 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">&#60;tr&#62;</code> 或 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">&#60;td&#62;</code> 元素，因此大幅提升了回應速度。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">因為 <strong style="text-align:left;font-weight:bold;">RenderContext</strong> 只繪製可視區域，所以無論試算表多大，執行效能也不受影響。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><strong style="text-align:left;font-weight:bold;">TableEditor</strong> 還包含一個 <strong style="text-align:left;font-weight:bold;">CellHandles</strong> 物件，可用於處理附加到<strong style="text-align:left;font-weight:bold;">目前儲存格</strong>（即ECell）右下角的圓盤形填充/移動/滑動選單指令：</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="socialcalc-cell-handles.png" style="width:243px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">輸入框則由兩個類型負責管理：<strong style="text-align:left;font-weight:bold;">InputBox</strong> 和 <strong style="text-align:left;font-weight:bold;">InputEcho</strong>。前者主要管理網格上的編輯行，後者主要用於在輸入內容時提供及時更新的預覽層，並覆蓋ECell的內容。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="socialcalc-input.png" style="width:434px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">通常，SocialCalc 引擎只有在打開試算表並進行編輯時，以及將內容保存回伺服器時才需要與伺服器通訊。因此，<code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">Sheet.ParseSheetSave</code> 方法可在<strong style="text-align:left;font-weight:bold;">Sheet</strong> 物件中解析<strong style="text-align:left;font-weight:bold;">儲存格式</strong>字串，而 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">Sheet.CreateSheetSave</code> 方法可將 <strong style="text-align:left;font-weight:bold;">Sheet</strong> 物件序列化為儲存格式。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">通過使用 URL，公式可引用任何遠端試算表中的值。<code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">recalc</code> 指令會重新抓取被引用的外部電子試算表，並使用 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">Sheet.ParseSheetSave</code> 對其進行解析，然後將其存儲在暫存區中，這樣使用者即可在不重新抓取內容的情況下，直接引用相同遠端表格中其他儲存格的內容。</div>
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h3 style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;line-height:27px;font-size:20px;margin: 0px; ">儲存格式</h3>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">儲存格式是一種標準的 MIME <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">multipart/mixed</code> 格式，主要由四個 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">text/plain; charset=UTF-8</code> 部件組成，每部件包含以換行隔開的文字，並用冒號劃分資料欄位。這些部件包括：</div>
+<ul style="text-align:left;list-style: disc outside none; margin: 0px 0px 9px 25px; padding: 0px; ">
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">meta</code> 部件列出其他部件的型別。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;"><code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">sheet</code> 部件列出每個儲存格的格式和功能、每個列的寬度（如果不是預設寬度）、表格的預設格式，以及該試算表中用到的字體、顏色，及邊框列表。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">可選的 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">edit</code> 部件可保存 <strong style="text-align:left;font-weight:bold;">TableEditor</strong> 的編輯狀態，包括 ECell 的最後一個位置，以及行/列窗格的固定大小。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">可選的 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">audit</code> 部件包含上一次編輯會話中執行過的指令歷史記錄。</li>
+</ul>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">舉例來說，下面是一個包含三個儲存格的試算表，A1 作為 ECell，其內容為 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">1874</code>，A2 中是公式 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">2^2*43</code>，A3 中的公式 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">SUM(Foo)</code> 則顯示為粗體字，代表命名範圍從 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">Foo</code> 到 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">A1:A2</code>：</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="socialcalc-2046.png" style="width:303px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">這份試算表經過序列化後，儲存格式會像這樣：</div>
+<pre style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;color:rgb(51, 51, 51);display:block;background-color: rgb(245, 245, 245); border-top-left-radius:4px 4px;border-top-right-radius:4px 4px;border-bottom-right-radius:4px 4px;border-bottom-left-radius:4px 4px;white-space:pre-wrap;word-break:break-all;word-wrap:break-word;font-size:16px;line-height:150%;border-width: 1px; border-style: solid; margin: 0px 0px 9px; padding: 8.5px; border-color: rgba(0, 0, 0, 0.148438); ">    socialcalc:version:1.0
+    MIME-Version: 1.0
+    Content-Type: multipart/mixed; boundary=SocialCalcSpreadsheetControlSave
+    --SocialCalcSpreadsheetControlSave
+    Content-type: text/plain; charset=UTF-8
+
+    # SocialCalc Spreadsheet Control Save
+    version:1.0
+    part:sheet
+    part:edit
+    part:audit
+    --SocialCalcSpreadsheetControlSave
+    Content-type: text/plain; charset=UTF-8
+
+    version:1.5
+    cell:A1:v:1874
+    cell:A2:vtf:n:172:2^2*43
+    cell:A3:vtf:n:2046:SUM(Foo):f:1
+    sheet:c:1:r:3
+    font:1:normal bold * *
+    name:FOO::A1\cA2
+    --SocialCalcSpreadsheetControlSave
+    Content-type: text/plain; charset=UTF-8
+
+    version:1.0
+    rowpane:0:1:14
+    colpane:0:1:16
+    ecell:A1
+    --SocialCalcSpreadsheetControlSave
+    Content-type: text/plain; charset=UTF-8
+
+    set A1 value n 1874
+    set A2 formula 2^2*43
+    name define Foo A1:A2
+    set A3 formula SUM(Foo)
+    --SocialCalcSpreadsheetControlSave--</pre>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">上述格式在設計上可讓人直接讀取，並且也很容易通過程式生成。因此，Drupal 項目的 Sheetnode 插件即可使用 PHP 在此格式以及其他流行的試算表格式，例如 Excel (<code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">.xls</code>) 及 OpenDocument (<code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">.ods</code>) 之間進行轉換。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">至此，我們已經簡要介紹了 SocialCalc 各個元件和組成方式。接下來，讓我們透過兩個實際的範例，一起來看看如何擴展 SocialCalc 的功能。</div>
+</section>
+<section style="text-align:left;display:block;padding-left:10%;padding-right:10%;">
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h2 id="ch4" style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;font-size:24px;line-height:36px;margin: 0px; ">豐富文本編輯</h2>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">我們對 SocialCalc 所做的第一項改進，是讓文字儲存格能夠使用共筆語法，以及直接在表格編輯器中實現的豐富文本繪製：</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="richtext-screenshot.png" style="width:365px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">在 1.0 版發布之後不久，為了回應用戶希望通過統一語法插入圖片、鏈接，以及文字標記的需求，我們幫 SocialCalc 加上了這項功能。由於 Socialtext 提供自己的開源共筆平台，因此自然會希望能在試算表中直接使用相同的語法。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">為了實現此功能，我們需要將預設的文字儲存格格式（即 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">textvalueformat</code> 屬性）設為 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">text-wiki</code>，並為它提供自定的繪製器。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">至於 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">textvalueformat</code> 屬性是什麼呢？請見下文。</div>
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h3 style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;line-height:27px;font-size:20px;margin: 0px; ">類型與格式</h3>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">在 SocialCalc 中，每個儲存格都有一個 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">datatype</code> 及一個 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">valuetype</code> 屬性。包含文字/數字資料的儲存格分別對應到文字/數字值類型，而具備 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">datatype="f"</code> 的公式儲存格則可能會生成數字或文字值。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">在前一節介紹的<strong style="text-align:left;font-weight:bold;">繪製</strong>步驟中，<strong style="text-align:left;font-weight:bold;">Sheet</strong> 物件會為每個儲存格生成 HTML。為此，它會檢查每個儲存格的 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">valuetype</code>：如果以 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">t</code> 開頭，則該儲存格的<code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">textvalueformat</code> 屬性會決定如何進行生成。如果以 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">n</code> 開頭，則使用 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">nontextvalueformat</code> 屬性進行判斷。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">如果該儲存格的 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">textvalueformat</code> 或 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">nontextvalueformat</code> 屬性沒有定義，則會通過其 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">valuetype</code> 屬性查詢預設格式，如下圖所示：</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="richtext-formats.png" style="width:486px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">對 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">text-wiki</code> 值格式的支援，寫在 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">SocialCalc.​format_text_for_display</code> 中：</div>
+<pre style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;color:rgb(51, 51, 51);display:block;background-color: rgb(245, 245, 245); border-top-left-radius:4px 4px;border-top-right-radius:4px 4px;border-bottom-right-radius:4px 4px;border-bottom-left-radius:4px 4px;white-space:pre-wrap;word-break:break-all;word-wrap:break-word;font-size:16px;line-height:150%;border-width: 1px; border-style: solid; margin: 0px 0px 9px; padding: 8.5px; border-color: rgba(0, 0, 0, 0.148438); ">     if (SocialCalc.Callbacks.expand_wiki
+         &#38;&#38; /^text-wiki/.test(valueformat)
+     ) { 
+         // do general wiki markup 
+         displayvalue = SocialCalc.Callbacks.expand_wiki(
+             displayvalue, sheetobj, linkstyle, valueformat
+         ); 
+     } </pre>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">此處我們並非將「共筆文字轉 HTML」的轉換器嵌入到 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">format_text_for_display</code> 裡，而是在 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">SocialCalc.​Callbacks</code> 裡定義一個新的掛鉤。這是 SocialCalc 代碼裡推薦的方法：這種模組化的設計，讓應用程式可以支援各種不同共筆文字的語法。如果應用程式用不到 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">text-wiki</code> 格式，也可以直接忽略 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">expand_wiki</code> 掛鉤。</div>
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h3 style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;line-height:27px;font-size:20px;margin: 0px; ">繪製共筆文字</h3>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">隨後，我們使用了 <a href="https://github.com/audreyt/wikiwyg-js" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Wikiwyg</a>，這是一個 JavaScript 程式庫，可在共筆文字和 HTML 之間提供雙向轉換。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">我們定義下列 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">expand_wiki</code> 函式，將儲存格的值透過 Wikiwyg 的 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">Wikitext</code> 解析器和 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">HTML</code> 產生器轉換成 HTML：</div>
+<pre style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;color:rgb(51, 51, 51);display:block;background-color: rgb(245, 245, 245); border-top-left-radius:4px 4px;border-top-right-radius:4px 4px;border-bottom-right-radius:4px 4px;border-bottom-left-radius:4px 4px;white-space:pre-wrap;word-break:break-all;word-wrap:break-word;font-size:16px;line-height:150%;border-width: 1px; border-style: solid; margin: 0px 0px 9px; padding: 8.5px; border-color: rgba(0, 0, 0, 0.148438); ">     var parser = new Document.Parser.Wikitext(); 
+     var emitter = new Document.Emitter.HTML(); 
+     SocialCalc.Callbacks.expand_wiki = function(val) { 
+         // Convert val from Wikitext to HTML 
+         return parser.parse(val, emitter); 
+     } </pre>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">最後一個步驟則需要在試算表初始化完畢後，將 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">set sheet defaulttextvalueformat text-wiki</code> 加入命令佇列：</div>
+<pre style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;color:rgb(51, 51, 51);display:block;background-color: rgb(245, 245, 245); border-top-left-radius:4px 4px;border-top-right-radius:4px 4px;border-bottom-right-radius:4px 4px;border-bottom-left-radius:4px 4px;white-space:pre-wrap;word-break:break-all;word-wrap:break-word;font-size:16px;line-height:150%;border-width: 1px; border-style: solid; margin: 0px 0px 9px; padding: 8.5px; border-color: rgba(0, 0, 0, 0.148438); ">     // Assume there's a &#60;div id="tableeditor"/&#62; in DOM 
+     var spreadsheet = new SocialCalc.SpreadsheetControl(); 
+     spreadsheet.InitializeSpreadsheetControl(
+         "tableeditor", 0, 0, 0
+     ); 
+     spreadsheet.ExecuteCommand(
+         'set sheet defaulttextvalueformat text-wiki'
+     ); </pre>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">將上述部份搭配起來後，<strong style="text-align:left;font-weight:bold;">繪製</strong>步驟的工作流程將類似這樣：</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="richtext-flow.png" style="width:760px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">大功告成！改進後的 SocialCalc 能夠支持豐富的共筆標記語法：</div>
+<pre style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;color:rgb(51, 51, 51);display:block;background-color: rgb(245, 245, 245); border-top-left-radius:4px 4px;border-top-right-radius:4px 4px;border-bottom-right-radius:4px 4px;border-bottom-left-radius:4px 4px;white-space:pre-wrap;word-break:break-all;word-wrap:break-word;font-size:16px;line-height:150%;border-width: 1px; border-style: solid; margin: 0px 0px 9px; padding: 8.5px; border-color: rgba(0, 0, 0, 0.148438); ">    *bold* _italic_ `monospace` {{unformatted}}
+    &#62; indented text
+    * unordered list
+    # ordered list
+    "Hyperlink with label"&#60;http://softwaregarden.com/&#62;
+    {image: http://www.socialtext.com/images/logo.png}</pre>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">請嘗試在 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">A1</code> 中輸入 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">*bold* _italic_ `monospace`</code>，隨後即可看到繪製後的豐富文本內容：</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="richtext-example.png" style="width:287px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+</section>
+<section style="text-align:left;display:block;padding-left:10%;padding-right:10%;">
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h2 id="ch5" style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;font-size:24px;line-height:36px;margin: 0px; ">即時多人協作</h2>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">我們接下來研究的一個例子，是在共享的試算表裡進行多人即時協同編輯。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">這乍看之下也許有點複雜，但是感謝 SocialCalc 的模組化設計，我們只需讓每位使用者將自己的指令傳播給其他參與者執行即可。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">為了對本地指令與遠端指令作出區分，我們為 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">ScheduleSheetCommands</code> 方法增加了 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">isRemote</code> 參數：</div>
+<pre style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;color:rgb(51, 51, 51);display:block;background-color: rgb(245, 245, 245); border-top-left-radius:4px 4px;border-top-right-radius:4px 4px;border-bottom-right-radius:4px 4px;border-bottom-left-radius:4px 4px;white-space:pre-wrap;word-break:break-all;word-wrap:break-word;font-size:16px;line-height:150%;border-width: 1px; border-style: solid; margin: 0px 0px 9px; padding: 8.5px; border-color: rgba(0, 0, 0, 0.148438); ">    SocialCalc.ScheduleSheetCommands =
+        function(sheet, cmdstr, saveundo, isRemote) {
+            if (SocialCalc.Callbacks.broadcast &#38;&#38; !isRemote) {
+                SocialCalc.Callbacks.broadcast('execute', {
+                    cmdstr: cmdstr,
+                    saveundo: saveundo
+                });
+            }
+            // ...original ScheduleSheetCommands code here...
+        };</pre>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">現在只需定義一個合適的 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">SocialCalc.Callbacks.broadcast</code> 回喚函數，即可讓所有連入此試算表的客戶端執行相同的指令。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">當 SEETA <a href="http://seeta.in/wiki/index.php?title=Collaboration_in_SocialCalc" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Sugar Labs</a> 於 2009 年在 OLPC 上首次實作這項功能時，<code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">broadcast</code> 函式是用 XPCOM 框架寫成，並在 OLPC/Sugar 的標準傳輸層 D-Bus/Telepathy 網路上運行：</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="collab-olpc.png" style="width:554px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">這樣的運行方式，讓 Sugar 網路裡的 XO 電腦能對共同的 SocialCalc 試算表進行協作，但也只能在 Mozilla/XPCOM 瀏覽器平台與 D-Bus/Telepathy 訊息平台上適用。</div>
+<h3 style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;line-height:27px;font-size:20px;margin: 0px; ">跨瀏覽器傳輸</h3>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">為了達成跨瀏覽器、跨作業系統的目標，我們使用 <a href="http://search.cpan.org/dist/Web-Hippie/" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Web::Hippie</a> 框架，作為 JSON 在 WebSocket 上傳輸的抽象層。它提供方便的 jQuery 綁定，並且當 WebSocket 不適用時，也能利用 MXHR (<a href="http://about.digg.com/blog/duistream-and-mxhr" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">multipart XMLHttpRequest</a>) 作為備用傳輸機制.</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">對於安裝了 Adobe Flash 插件但沒有原生 WebSocket 支持的瀏覽器，我們使用 <a href="https://github.com/gimite/web-socket-js" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">web_socket.js</a> 專案的 Flash WebSocket 模擬器，這通常比 MXHR 更快也更可靠。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">運作流程看上去是這樣的:</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="collab-flow.png" style="width:702px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">客戶端的 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">SocialCalc.Callbacks.broadcast</code> 函式定義如下:</div>
+<pre style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;color:rgb(51, 51, 51);display:block;background-color: rgb(245, 245, 245); border-top-left-radius:4px 4px;border-top-right-radius:4px 4px;border-bottom-right-radius:4px 4px;border-bottom-left-radius:4px 4px;white-space:pre-wrap;word-break:break-all;word-wrap:break-word;font-size:16px;line-height:150%;border-width: 1px; border-style: solid; margin: 0px 0px 9px; padding: 8.5px; border-color: rgba(0, 0, 0, 0.148438); ">    var hpipe = new Hippie.Pipe();
+
+    SocialCalc.Callbacks.broadcast = function(type, data) {
+        hpipe.send({ type: type, data: data });
+    };
+
+    $(hpipe).bind("message.execute", function (e, d) {
+        var ss = SocialCalc.CurrentSpreadsheetControlObject;
+        ss.context.sheetobj.ScheduleSheetCommands(
+            d.data.cmdstr,
+            d.data.saveundo,
+            true // isRemote = true
+        );
+        break;
+    });</pre>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">儘管這已經能順利運行，我們仍然有兩個問題需要解決。</div>
+<h3 style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;line-height:27px;font-size:20px;margin: 0px; ">衝突解決</h3>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">第一個就是為了執行指令而產生的爭用狀態：如果使用者 A 與 B 同時執行某個影響相同儲存格的操作，之後才接收到與對方傳播出來的指令，那麼雙方將會停在不同的狀態：</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="collab-conflict.png" style="width:684px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">我們可以通過 SocialCalc 內置的還原/重作機制來解決這個問題，如下圖所示：</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="collab-resolution.png" style="width:685px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+<ul style="text-align:left;list-style: disc outside none; margin: 0px 0px 9px 25px; padding: 0px; ">
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">當客戶傳播出一個指令時，會將指令添加到<strong style="text-align:left;font-weight:bold;">待辦</strong>佇列。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">當客戶接收到一個指令時，檢查<strong style="text-align:left;font-weight:bold;">待辦</strong>佇列：
+<ul style="text-align:left;list-style: disc outside none; margin: 0px 0px 0px 25px; padding: 0px; ">
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">如果<strong style="text-align:left;font-weight:bold;">待辦</strong>佇列為空，則直接執行這項遠端指令。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">如果它符合<strong style="text-align:left;font-weight:bold;">待辦</strong>佇列裡的本地指令，則將它將從佇列中移除。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">否則，檢查佇列中是否有指令與接收到的指令相衝突：
+<ul style="text-align:left;list-style: disc outside none; margin: 0px 0px 0px 25px; padding: 0px; ">
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">如果存在衝突指令，則先<strong style="text-align:left;font-weight:bold;">還原</strong>這些指令，並將其標記為稍後<strong style="text-align:left;font-weight:bold;">重作</strong>。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">在還原所有的衝突指令之後，將遠端指令按正常狀態執行。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">當從伺服器上接收到標記為<strong style="text-align:left;font-weight:bold;">重做</strong>的指令時，客戶端將再次執行指令，再從佇列中將其移除。</li>
+</ul>
+<h3 style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;line-height:27px;font-size:20px;margin: 0px; ">遠端游標</h3>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">盡管爭用狀態已經得到解決，但「偶爾會覆蓋掉其他使用者正在編輯的儲存格」這樣的不理想情形還是存在。我們可以更進一步，將每位使用者的游標位置傳播給其他使用者，讓每個人都能看到有哪些儲存格正在編輯。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">為了實做這一想法，我們為 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">MoveECellCallback</code> 事件添加了另一個 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">broadcast</code> 處理程序:</div>
+<pre style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;color:rgb(51, 51, 51);display:block;background-color: rgb(245, 245, 245); border-top-left-radius:4px 4px;border-top-right-radius:4px 4px;border-bottom-right-radius:4px 4px;border-bottom-left-radius:4px 4px;white-space:pre-wrap;word-break:break-all;word-wrap:break-word;font-size:16px;line-height:150%;border-width: 1px; border-style: solid; margin: 0px 0px 9px; padding: 8.5px; border-color: rgba(0, 0, 0, 0.148438); ">    editor.MoveECellCallback.broadcast = function(e) {
+        hpipe.send({
+            type: 'ecell',
+            data: e.ecell.coord
+        });
+    };
+
+    $(hpipe).bind("message.ecell", function (e, d) {
+        var cr = SocialCalc.coordToCr(d.data);
+        var cell = SocialCalc.GetEditorCellElement(
+            editor, cr.row, cr.col
+        );
+        // ...decorate cell with styles specific
+        //    to the remote user(s) on it...
+    });</pre>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">在試算表中標記儲存格焦點時，通常會使用帶有顏色的邊框。但是，該儲存格也許已經有自己的 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">border</code> 屬性了。而由於 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">border</code> 為單一顏色，因此在相同的儲存格只能表現一個游標。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">因此，在支援 CSS3 的瀏覽器上，我們使用 <code style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;color:rgb(221, 17, 68);background-color: rgb(247, 247, 249); font-size:16px;line-height:150%;border-width: 1px; border-style: solid; padding: 2px 4px; border-color: rgb(225, 225, 232); ">box-shadow</code> 功能來表現多個游標:</div>
+<pre style="text-align:left;font-family:Menlo, Monaco, 'Courier New', monospace;color:rgb(51, 51, 51);display:block;background-color: rgb(245, 245, 245); border-top-left-radius:4px 4px;border-top-right-radius:4px 4px;border-bottom-right-radius:4px 4px;border-bottom-left-radius:4px 4px;white-space:pre-wrap;word-break:break-all;word-wrap:break-word;font-size:16px;line-height:150%;border-width: 1px; border-style: solid; margin: 0px 0px 9px; padding: 8.5px; border-color: rgba(0, 0, 0, 0.148438); ">    /* Two cursors on the same cell */
+    box-shadow: inset 0 0 0 4px red, inset 0 0 0 2px green;</pre>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">如此一來，當四人編輯同一個試算表時，螢幕看起來會像這樣:</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; "><img src="collab-borders.png" style="width:209px;text-align:left;height:auto;vertical-align:middle;margin-left:10%;border-width: 0px; border-style: none; border-color: white; "/></div>
+</section>
+<section style="text-align:left;display:block;padding-left:10%;padding-right:10%;">
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h2 id="ch6" style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;font-size:24px;line-height:36px;margin: 0px; ">開發經驗談</h2>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">筆者在 2009 年 6 月時加入 SocialCalc 專案團隊。經過四個月的密集作業，我們在 10 月 19 日（VisiCalc 的 30 周年紀念日）發表了 SocialCalc 1.0 版。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">從 WikiCalc 到 SocialCalc，中間經歷了三年的開發。相形之下，最後這四個月只是一段短暫的時間。儘管如此，這段和 Socialtext 同事在 Dan Bricklin 的指導下進行協作的過程，仍使我獲益匪淺。在此，筆者想將那段時間學到的經驗分享給大家。</div>
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h3 style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;line-height:27px;font-size:20px;margin: 0px; ">願景清晰的首席設計師非常重要</h3>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">在《設計的設計（The Design of Design）》一書中，Fred Brooks 認為，在建構複雜系統時，若能專注於清晰連貫的設計概念，而非各自為政的想法，那麼溝通成本將會大幅下降。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">依 Brooks 的想法，這種連貫式設計概念的構想，最好能由一個人來主導：</div>
+<blockquote style="text-align:left;border-left-color:rgb(238, 238, 238);border-width: medium medium medium 5px; border-style: none none none solid; margin: 0px 0px 18px; padding: 0px 0px 0px 15px; "><span style=""></span><div style="text-align:left;font-weight:300;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px; ">概念的完整性是偉大設計中最重要的特性。由於完整的概念只能出自一人或少數人的合作構想，因此明智的管理者會大膽委託才華出眾的首席設計師，來承擔整個設計任務。</div><span style=""></span></blockquote>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">對於 SocialCalc 這個專案來說，讓 Tracy Ruggles 擔任首席用戶體驗設計師，是讓我們成功實現原初構想的關鍵。由於 SocialCalc 的底層引擎十分易於擴展，因此各種新功能的想法往往層出不窮；Tracy 透過草圖進行原型設計的才能，為我們提供了巨大的幫助，讓我們能用最直觀的方式呈現出所有的功能。</div>
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h3 style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;line-height:27px;font-size:20px;margin: 0px; ">共筆確保專案延續</h3>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">在我加入專案之前，SocialCalc 已有超過兩年的設計和開發歷史，但我卻能在幾天之內立刻趕上進度，開始作出貢獻。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">這是因為「所有資訊都在共筆裡」– 從早期的設計草稿到最新的瀏覽器支援清單，整個流程都詳細記載在共筆頁面和 SocialCalc 試算表裡。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">通過閱讀該專案的相關記錄，讓我能跳過新成員加入時常見的上手期，快速跟上目前的進度。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">這在傳統的開源專案比較少見。傳統專案中大部分的交流都是在 IRC 和郵件列表中進行的，而共筆（如果有使用的話）往往只用來存放相關資源的記錄和鏈結 – 如果有新人加入，要想通過結構混亂的 IRC 紀錄和郵件存檔追趕進度，無疑會更加困難。</div>
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h3 style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;line-height:27px;font-size:20px;margin: 0px; ">善加運用時區差異</h3>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">Ruby on Rails 的發明人 David Heinemeier Hansson 在加入 37signals 時，曾這樣評價分散式團隊的優勢：</div>
+<blockquote style="text-align:left;border-left-color:rgb(238, 238, 238);border-width: medium medium medium 5px; border-style: none none none solid; margin: 0px 0px 18px; padding: 0px 0px 0px 15px; "><span style=""></span><div style="text-align:left;font-weight:300;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px; ">哥本哈根和芝加哥之間相隔的七個時區，實際上減少了我們受到的打擾，讓我們做出更多工作。</div><span style=""></span></blockquote>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">在 SocialCalc 的研發過程中，對於台北和帕羅奧圖之間相隔的九個時區，我們亦有同感。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">通常我們會在一天 24 小時內，完成一次「設計-開發-品管」反饋循環，每個環節用到某個人的八小時。這種非同步式的協作，促使我們運用能自我描述的完整作品（設計草圖、代碼，以及測試）來溝通，從而大幅增進相互之間的信任。</div>
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h3 id="ofun" style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;line-height:27px;font-size:20px;margin: 0px; ">樂趣最優</h3>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">筆者在 2006 年於 CONISLI 會議上所作的主題演講「<a href="http://www.slideshare.net/autang/ofun-optimizing-for-fun" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">-OFun：樂趣最優（Optimizing for Fun）</a>」裡，將自己領導分散式團隊開發 Perl 6 語言的經驗，總結為幾個重點。其中「隨時保持藍圖清晰」、「事後寬恕 &#62; 事前許可」、「打破僵局」、「不求共識，只求創意」，以及「使用代碼描述概念」這幾項，特別適合小型的分散式團隊。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">因此，在開發 SocialCalc 時，我們特別重視團隊成員間的知識分享，以確保每個人都不會成為主要瓶頸。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">另外，當設計過程出現多種備選方案時，我們會主動將每個方案都進行實做，以深入探勘它們的設計空間，並先一步解決可能出現的衝突。如果在此過程裡發現有更好的設計，我們也不怕將整個原型打掉重寫。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">雖然缺乏面對面交流，但這些文化特質幫我們培養相互之間的信任和情誼，並將爭議降到最低，讓 SocialCalc 的開發成為一件樂事。</div>
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h3 style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;line-height:27px;font-size:20px;margin: 0px; ">通過故事測試推動開發工作</h3>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">在加入 Socialtext 前，我曾倡導「將測試寫進規格裡」的方法，這一點在 <a href="http://perlcabal.org/syn/S02.html" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Perl 6 語言規格</a> 中就能看到：我們逐段幫規格加上測試，並持續確保兩者之間的同步。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">然而 SocialCalc 專案品管團隊的成員 Ken Pier 和 Matt Heusser 卻讓我大開眼界 – 原來這種做法還可以更進一步，將測試提昇到「可以執行的規格」這個境界。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">在《美妙的測試（Beautiful Testing）》一書第 16 章，「剝開 Socialtext 的玻璃洋蔥」裡，Matt 用如下方式解釋了我們由「故事測試」推動的開發流程：</div>
+<blockquote style="text-align:left;border-left-color:rgb(238, 238, 238);border-width: medium medium medium 5px; border-style: none none none solid; margin: 0px 0px 18px; padding: 0px 0px 0px 15px; "><span style=""></span><div style="text-align:left;font-weight:300;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px; ">工作的最基本單元是一系列「故事」，也就是一系列非常輕量級的需求文件。</div>
+<div style="text-align:left;font-weight:300;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px; ">每個故事只包含對一個功能的簡要描述，以及此功能的運作實例，用最直白的文句進行描述。我們稱這些實例為「接納度測試」。</div>
+<div style="text-align:left;font-weight:300;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px; ">在故事形成初期，設計師會先寫出初步的接納度測試，隨後由開發人員和測試人員進行討論，之後開發人員才開始編寫代碼。</div><span style=""></span></blockquote>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">隨後這些故事測試會被轉換為「共筆測試（wikitests）」。這是一種基於表格的語言，脫胎自 Ward Cunningham 的 <a href="http://fit.c2.com/" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">FIT 框架</a>。用此語言寫成的測試存進共筆系統後，會自動連接到 <a href="http://search.cpan.org/dist/Test-WWW-Mechanize/" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Test​::WWW​::Mechanize</a> 和 <a href="http://search.cpan.org/dist/Test-WWW-Selenium/" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Test​::WWW​::Selenium</a> 等測試框架，成為自動測試流程的一環。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">用故事測試作為「表達需求」和「驗證需求」的共通語言，這種做法的好處一言難盡。它不但大幅節省了溝通成本，也讓我們能每個月對系統進行一次改版時，不用擔心已經修復的瑕疵會再次出現。</div>
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h3 style="text-align:left;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;line-height:27px;font-size:20px;margin: 0px; " id="cpal" name="cpal">CPAL 開源授權</h3>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">最後，我們針對 SocialCalc 而設計的開源授權，也令我們受益匪淺。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">Socialtext 為了 SocialCalc，設計出通用公共授權（<a href="https://www.socialtext.net/open/cpal" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Common Public Attribution License</a>）。CPAL 以 Mozilla 公共授權為基礎，並讓原作者可以要求在軟體的界面上顯示自己的標誌。CPAL 還加上了「網絡使用條款」，讓衍生作品在透過網路提供服務時，也授予一般使用者取得源碼的權利。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">在獲得<a href="http://opensource.org/" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">開放源碼促進會</a>和<a href="http://www.fsf.org/" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">自由軟體基金會</a>的認可後，已經有不少知名網站（例如 <a href="https://github.com/facebook/platform" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Facebook</a> 和 <a href="https://github.com/reddit/reddit" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Reddit</a>）選擇用 CPAL 方式發布自己的平台源碼，這對我們無疑是莫大的鼓勵。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">因為 CPAL 屬於「較弱型著佐權（weak copyleft）」授權，因此開發人員可以將它整合進任何自由軟體或私有軟體裡，只需要分享出針對 SocialCalc 本身的修改。這讓各個社群都可以採用 SocialCalc ，並對其進行改進。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">底下是一些以 <a href="https://github.com/DanBricklin/socialcalc" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">SocialCalc</a> 為基礎的開源專案：</div>
+<ul style="text-align:left;list-style: disc outside none; margin: 0px 0px 9px 25px; padding: 0px; ">
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">Drupal 的 <a href="http://drupal.org/project/sheetnode" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Sheetnode 專案</a>，及其自行維護的 <a href="https://github.com/infojunkie/socialcalc" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">SocialCalc 分支</a>。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">Luke Closs 發起的 <a href="https://github.com/lukec/socialcalc-xocom" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">OLPC/XOCOM 平台移植版</a>。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">SEETA 的 <a href="http://seeta.in/wiki/index.php?title=SocialCalc_on_Sugar" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">OLPC/Sugar 平台移植版</a>，由 Luke 的版本衍生而來。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">SEETA 的 <a href="http://www.seeta.in/wiki/index.php?title=SocialCalc_on_PalmPre" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Palm Pre 平台移植版</a>。</li>
+<li style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;">Ramu Ramamurthy 的 <a href="https://github.com/shrek/socialcalc/tree/master/JvmServer" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">Scala/Java 試算表伺服器專案</a>。</li>
+</ul>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">本章中的範例，包括豐富文本和協作編輯等功能，都能在 <a href="http://github.com/audreyt/ethercalc" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">http://github.com/audreyt/ethercalc</a> 下載。WikiCalc 1.0 代碼的歷史存檔，則可由 <a href="http://github.com/audreyt/wikicalc" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">http://github.com/audreyt/wikicalc</a> 取得。</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">開源的網頁試算表引擎，有許多有趣的應用可能。如果您能將 SocialCalc 嵌入到您自己的專案中，這絕對是我們喜聞樂見的。</div>
+<div style="text-align:left;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:20px;line-height:150%;padding-bottom:10px;margin: 0px 0px 9px; ">Happy Hacking!</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct1;visibility:visible;margin: 0px 0px 9px; ">唐鳳</div>
+</section>
+</section>
+
+
+<hr>
+<section class="book" style="text-align:left;display:block;">
+<div style="text-align:left;padding-bottom:17px;border-bottom-color:rgb(238, 238, 238);font-family:ct1;visibility:visible;border-width: medium medium 1px; border-style: none none solid; margin: 18px 0px; ">
+<h1 id="book2" style="text-align:left;font-family:inherit;color:inherit;text-rendering:optimizelegibility;font-size:30px;line-height:1;font-weight:normal;margin: 0px; ">效能架構</h1>
+</div>
+<div style="text-align:left;font-size:20px;line-height:150%;padding-bottom:10px;font-family:ct2;visibility:visible;margin: 0px 0px 9px; ">
+以下是<a target="_blank" href="http://aosabook.org/" style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">《開源應用程式效能》</a>EtherCalc 章節的中文譯本，全文採用
+<a style="text-align:left;color:rgb(0, 136, 204);text-decoration:none;white-space:nowrap;">CC0 條款</a>，屬於公眾領域。
+</div>
+
+<h2 id="cha">從 SocialCalc 到 EtherCalc</h2>
+
+<p>先前在<a target="_blank" href="http://ethercalc.tw/">《開源應用程式架構》</a> 一書中，我介紹了 SocialCalc 這個在瀏覽器中運行的試算表編輯器，以取代伺服器為中心的 WikiCalc 架構。SocialCalc 在瀏覽器中執行所有的運算，只有在載入和儲存試算表時才會使用伺服器。</p>
+
+<p>追求效能是 Socialtext 團隊在 2006 年時設計 SocialCalc 的主要目的。重點在於：在 JavaScript 環境下執行客戶端運算，儘管在當年的速度僅有伺服器端 Perl 運算的十分之一，但仍然勝過 AJAX 來回傳輸資料造成的網路延遲：</p>
+
+<hr><p>
+<img src="wikicalc-socialcalc-zh-tw.png" alt="WikiCalc 與 SocialCalc 架構比較" title="自 2009 年起，JavaScript 的執行速度已將圖中的 50ms 減為 <10ms。" style="max-width:100%;" width="100%"></p>
+
+<hr><p>《開源應用程式架構》的最後一段裡，我們介紹了如何透過一種簡單、類似聊天室的架構，來進行試算表同步協作：</p>
+
+<hr><p>
+<img src="multiplayer-socialcalc-zh-tw.png" alt="多人連線版 SocialCalc" style="max-width:100%;" width="100%"></p>
+
+<hr><p>然而，當我們開始進行上線測試時，卻發現它的效能與延展性不符實際需求，這也激發我們重寫整個系統，以便達到可接受的效能水準。</p>
+
+<p>本章將會討論 <a target="_blank" href="http://ethercalc.tw/">EtherCalc</a> 系統的演進過程。它是 SocialCalc 的後續專案，為試算表提供多人同步的編輯功能。我們會詳述系統架構的沿革，介紹相關的效能分析工具，以及我們創造出哪些新的工具來克服效能上的問題。</p>
+
+<h2 id="chb">設計限制</h2>
+
+<p>Socialtext 平台同時具有「防火牆內」及「雲端部署」兩種選項，這對 EtherCalc 的資源及效能需求增加了獨特的限制。本書寫作時，Socialtext 在 vSphere 為基礎的內部網路主機服務內的最低需求，是雙核心處理器和 4GB 的記憶體容量。典型的 EC2 虛擬主機服務則提供大約兩倍的效能，相當於四核心和 7.5GB 的記憶體容量。</p>
+
+<p>內部網路的部署需求，代表我們不能像多租戶的主機模式系統那樣，靠擴充硬體來解決問題（例如 DocVerse，後來成為 Google Docs 的一部分）；系統必須能在一個普通的伺服器上運行。</p>
+
+<p>相較於內部網路部署，雲端主機可以藉由隨選擴充，來提供較高的效能，但是瀏覽器的網路連線通常比較慢，而且斷線與重新連線的狀況相當頻繁。</p>
+
+<p>綜上所述，這些形塑 EtherCalc 架構方向的資源所受的限制有：</p>
+
+<ul>
+<li><p><strong>記憶體</strong>：以事件為基礎的伺服器，能讓我們用較少的記憶體處理數千個同時發生的網路連線。</p></li>
+<li><p><strong>處理器</strong>：基於 SocialCalc 的原始設計，我們把大部分運算及所有內容繪製移到客戶端 JavaScript 運行，以減少伺服器的負載。</p></li>
+<li><p><strong>網路</strong>：傳送試算表操作指令而非內容，可降低所需的頻寬，並從不穩定的網路連線上恢復。</p></li>
+</ul>
+
+<h2 id="chc">初步原型</h2>
+
+<p>我們首先用 Perl 5 語言撰寫了一套 WebSocket 伺服器，透過 Socialtext 開發的 <a target="_blank" href="https://metacpan.org/release/Feersum">Feersum</a> 這個以 libev 為基礎的事件引擎提供支援。Feersum 的速度相當快，在一般狀況下每秒可處理上萬筆請求。</p>
+
+<p>除了 Feersum 以外，我們還使用中介軟體 <a target="_blank" href="https://metacpan.org/release/PocketIO">PocketIO</a>，接上廣受好評的 Socket.io JavaScript 客戶端，以相容於尚未支援 WebSocket 的舊版瀏覽器。</p>
+
+<p>這個初步原型跟聊天室伺服器十分相似，每個協作時段就相當於一個聊天室；客戶端可以將本地的執行指令及游標動作傳送到伺服器，然後透過伺服器轉送給同一個聊天室裡的所有客戶。</p>
+
+<p>典型的操作流程就像這樣：</p>
+
+<hr><p>
+<img src="flow-prototype-zh-tw.png" alt="紀錄重播式的原型伺服器" style="max-width:100%;" width="100%"></p>
+
+<hr><p>伺服器在紀錄每個收到的指令時，都會附上時間戳記。如果客戶斷線後又重新連線，它可以擷取這段時間的積存紀錄，然後重新執行那些指令，以達到跟其他人相同的狀態。</p>
+
+<p>如同我們在《開源應用程式架構》提到的，這個簡單的設計大幅減少了伺服器端的處理器與記憶體需求，並且可以在網路連線失敗的狀況下，展現出合理的復原能力。</p>
+
+<h2 id="chd">第一個瓶頸</h2>
+
+<p>然而，我們在 2011 年 6 月實地測試雛型時，卻發現隨著協作編輯的執行時段愈長，就會出現愈嚴重的效能問題。</p>
+
+<p>由於試算表是長久存在的文件，因此經過數週的編輯，協作時段可能會累積數千筆的修改紀錄。</p>
+
+<p>在前述的積存紀錄模型下，在新客戶端加入協作時段時，勢必遇上明顯的啟動延遲：它得先重新執行數千個指令，才能進行任何修改。</p>
+
+<p>為了減輕這個問題，我們採用了快照機制。每當 100 個指令傳送到協作時段後，伺服器就會調查線上每個客戶的狀態，然後將最新收到的快照儲存在積存紀錄中。新加入的客戶端僅需接收這個快照，以及快照儲存之後新輸入的指令即可。這樣一來，它最多只需要重新執行 99 個指令。</p>
+
+<hr><p>
+<img src="flow-snapshot-zh-tw.png" alt="加入快照機制的原型伺服器" style="max-width:100%;" width="100%"></p>
+
+<hr><p>這個權宜之計解決了新加入客戶端的處理器延遲問題，但卻帶來了網路效能不佳的問題，因為它會每隔一陣子，就耗用每個客戶端的上載頻寬。若是連線速度緩慢，客戶端後續指令的發送時間就會受到延遲。</p>
+
+<p>除此以外，伺服器沒有辦法確認客戶端上傳的快照是否正確。錯誤的快照會弄亂所有新加入者的狀態，導致它們和其他其他共同編輯者失去一致性。</p>
+
+<p>細心的讀者也許會發現，這兩個問題的癥結，都是因為伺服器缺乏執行試算表指令的能力。如果伺服器在接收到每個指令時，可以自行更新內部的試算表狀態，它其實根本不需要維護指令的積存紀錄。</p>
+
+<p>瀏覽器內的 SocialCalc 試算表引擎，是用 JavaScript 語言寫成。我們曾考慮過把它的邏輯轉譯成 Perl，以在伺服器端執行，但是維護兩套程式碼需要付出極大的成本。我們也嘗試在伺服器端嵌入 JavaScript 引擎（<a target="_blank" href="https://metacpan.org/release/JavaScript-V8">V8</a>、<a target="_blank" href="https://metacpan.org/release/JavaScript-SpiderMonkey">SpiderMonkey</a> 等），但它們在 Feersum 事件迴圈裡運作時，會產生許多效能上的問題。</p>
+
+<p>到了 2011 年 8 月，我們終於決定打掉重練，用 Node.js 重寫伺服器。</p>
+
+<h2 id="che">移植到 Node.js</h2>
+
+<p>由於 Feersum 和 Node.js 都以 libev 事件模型為基礎，而且 Pocket.io 的程式介面跟 Socket.io 幾乎相同，所以最初的改寫十分順利。</p>
+
+<p>感謝 <a target="_blank" href="http://zappajs.com/">ZappaJS</a> 框架提供的簡潔介面，我們只花了一個下午，用了 80 行程式，就寫出了功能相當的伺服器。</p>
+
+<p>簡單的<a target="_blank" href="http://achilles.hukaa.com/?p=8">效能測試</a>顯示，Node.js 的處理效率比 Feersum 少了一半左右：在 2011 年的 Core i5 處理器上，Feersum+Tatsumaki 每秒可處理 5000 次請求，而 Node.js+Express 的每秒上限約為 2800 次請求。</p>
+
+<p>由於這還在我們可接受的範圍內，不致於影響日常使用，因此我們接受這項缺陷，並且期望它在一段時間後會有所改善。</p>
+
+<p>在初步移植完畢之後，我們便著手將每個編輯階段的試算表狀態存放在伺服器端，以減少客戶端的處理器使用，並大幅降低所需的頻寬：</p>
+
+<hr><p>
+<img src="flow-nodejs-zh-tw.png" alt="將試算表狀態存放於 Node.js 伺服器上" style="max-width:100%;" width="100%"></p>
+
+<hr>
+
+<h2 id="chf">伺服器端 SocialCalc</h2>
+
+<p><a target="_blank" href="https://github.com/tmpvar/jsdom">jsdom</a> 是提升作業效能的關鍵技術，它完整實作了 W3C 文件物件模型，讓 Node.js 能在模擬的瀏覽器環境內，載入寫給客戶端的 JavaScript 程式庫。</p>
+
+<p>利用 jsdom，我們可以在伺服器端任意創建 SocialCalc 試算表，它們會在各自的沙盒裡進行運算：</p>
+
+<pre><code>require! &lt;[ vm jsdom ]&gt;
+create-spreadsheet = -&gt;
+  document = jsdom.jsdom \&lt;html&gt;&lt;body/&gt;&lt;/html&gt;
+  sandbox  = vm.createContext window: document.createWindow! &lt;&lt;&lt; {
+    setTimeout, clearTimeout, alert: console.log
+  }
+  vm.runInContext """
+    #packed-SocialCalc-js-code
+    window.ss = new SocialCalc.SpreadsheetControl
+  """ sandbox
+</code></pre>
+
+<p>每個協作時段都對應到一個沙盒內的 SocialCalc 控制器，即時執行客戶端傳來的指令。當新客戶端加入時，伺服器僅需傳送試算表控制器內的最新狀態，從而徹底解決積存紀錄帶來的效能問題。</p>
+
+<p>對測試結果感到滿意之後，我們編寫了一個以 Redis 為基礎的儲存引擎，並在 <a target="_blank" href="http://ethercalc.org/">EtherCalc.org</a> 公開測試。在接下來的六個月裡，它展現了極佳的延展性，順利執行了數百萬筆試算表運作，沒有發生任何狀況。</p>
+
+<p>2012 年 4 月，我在 OSDC.tw 大會上以 EtherCalc 為主題發表演講，之後趨勢科技公司邀我參加他們的黑客松，將 EtherCalc 改作成可編程式的視覺化引擎，用來即時監視網路流量資料。</p>
+
+<p>為了這個使用案例，我們製作 REST 介面，以便用 GET、PUT 存取試算表中的個別儲存格，並使用 POST 將指令直接發送到試算表內。在這場黑客松裡，嶄新的 REST 處理器每秒接收數百筆呼叫，在瀏覽器中即時更新圖像及公式格內容，完全沒有發生速度減緩或記憶體洩漏的狀況。</p>
+
+<p>然而在最後展示會上，當我們將流量資料輸送到 EtherCalc，開始把公式鍵入瀏覽器中的試算表時，伺服器突然當掉，凍結了所有執行中的連線。我們重新執行 Node.js 作業，卻只見它耗用 100% 的處理器資源，隨即又鎖住不動。</p>
+
+<p>吃驚之餘，我們換回較早的資料重新執行。它的運作沒有問題，也讓我們的展示得以完成。但我不禁在想：一開始導致程式當掉的原因究竟是什麼？</p>
+
+<h2 id="chg">Node.js 效能分析</h2>
+
+<p>要找出 CPU 卡在哪裡，就得使用效能分析器。</p>
+
+<p>Perl 初步原型的效能監測方式相當簡單明瞭，這大半要歸功於優秀的 <a target="_blank" href="https://metacpan.org/module/Devel::NYTProf">NYTProf</a> 工具，它能利用詳盡的 HTML 報告以及互動式的<a target="_blank" href="https://metacpan.org/module/nytprofcg">函式呼叫視覺界面</a>，詳細列出每個函式、每個區塊、每列、每個操作碼的時間資訊。除此以外，我們也利用 Perl 內建的 <a target="_blank" href="https://metacpan.org/module/perldtrace">DTrace 支援</a>，針對長時運行的程序，取得函式出入的即時數據。</p>
+
+<p>相形之下，Node.js 的效能分析工具還有很大的進步空間。截至此時，DTrace 仍只能在 <a target="_blank" href="http://blog.nodejs.org/2012/04/25/profiling-node-js/">illumos 系作業系統</a>的 32 位元模式下運行，因此我們大多得靠 <a target="_blank" href="https://github.com/c4milo/node-webkit-agent">Node Webkit Agent</a> 提供的分析介面，即使它只提供函式層級的數據資料。</p>
+
+<p>典型的運行方式如下：</p>
+
+<pre><code># "lsc" 是 LiveScript 編譯器
+# 先載入 WebKit agent 模組，然後執行 app.js:
+lsc -r webkit-devtools-agent -er ./app.js
+# 另開一個終端機頁籤，啟動分析器：
+killall -USR2 node
+# 在 WebKit 瀏覽器裡開啟下列網址，開始效能分析：
+open http://tinyurl.com/node0-8-agent
+</code></pre>
+
+<p>為了重現沉重的背景負載，我們運用 <a target="_blank" href="http://httpd.apache.org/docs/trunk/programs/ab.html">ab</a> 執行高度並行的 REST API 呼叫程式。為了模擬移動游標、更新公式等瀏覽器端的運作狀況，我們採用了同樣以 jsdom 和 Node.js 編寫的無顯示介面瀏覽器 <a target="_blank" href="http://zombie.labnotes.org/">Zombie.js</a>。</p>
+
+<p>有趣的是，我們發現瓶頸正是出在 jsdom 本身：</p>
+
+<p>
+<img src="profiler-jsdom.png" title="ab -n 10000 /_/1/html # 540rps" style="max-width:100%;" width="100%"></p>
+
+<p>從上面的報告中可以看出，<code>RenderSheet</code> 佔用 CPU 的時間最多：每當收到指令時，服務器都會用幾微秒的時間重新繪製單元格的 <code>innerHTML</code> 屬性，以反映指令的執行效果。</p>
+
+<p>因為所有 jsdom 代碼都在同一個線程中運行，所以後續的 REST API 呼叫將會卡住，直到上一命令的繪製過程結束為止。在高度並行的情況下，過長的佇列觸發了潛藏的瑕疵，最終使伺服器當掉。</p>
+
+<p>我們在仔細檢查了物件使用情況之後，發現繪製結果幾乎毫無用處，因為伺服器端根本毋需即時顯示 HTML 內容。唯一用到繪製結果的是「匯出 HTML」這個 API，但其實我們可以等到實際有人呼叫它時，再利用記憶體內的試算表結構，繪製出每個單元格的 <code>innerHTML</code> 屬性。</p>
+
+<p>所以，我們移除了 <code>RenderSheet</code> 函式，用 <a target="_blank" href="https://github.com/audreyt/ethercalc/commit/fc62c0eb#L1R97">20 行 LiveScript 代碼</a> 重新實作了匯出 HTML 所需的極少數 DOM 介面，然後再運行了一次效能分析器：</p>
+
+<p>
+<img src="profiler-no-jsdom.png" alt="經過更新的效能分析器螢幕截圖（去除 jsdom）" title="ab -n 10000 /_/1/html # 2116rps" style="max-width:100%;" width="100%"></p>
+
+<p>現在好多了！我們將流量提高了 4 倍，將 HTML 匯出速度加快了 20 倍，也順利解決了當機問題。</p>
+
+<h1>
+<h2 id="chh">多核心延展</h2>
+
+<p>這一輪改進完成後，我們終於覺得沒有顧慮，可以將 EtherCalc 整合到 Socialtext 平台裡，為共筆頁面和試算表提供同時編輯的功能。</p>
+
+<p>為了確保實際上線時的回應效率，我們部署了一個反向代理 nginx 伺服器，利用它的 <a target="_blank" href="http://wiki.nginx.org/HttpLimitReqModule#limit_req">limit_req</a> 指令對 API 呼叫的速率設置上限。對於「防火牆內」和「專屬遠端伺服器」這兩種情況，執行結果確實都令人滿意。</p>
+
+<p>但是，對於中小型企業客戶，Socialtext 還有第三種部署方式：「多戶共用遠端伺服器」。在一台大型伺服器裡，我們同時為超過 35000 家公司提供服務，每家公司平均約有 100 位用戶。</p>
+
+<p>在這種多戶共用情形裡，所有執行 REST API 調用的客戶的請求，都會計入每秒的最大請求次數，從而使每位客戶的實際限制都嚴格得多，平均限制約為每秒請求 5 次。上一節中已經指出，這種限制的成因，是由於 Node.js 僅能使用一個 CPU 來執行所有運算操作：</p>
+
+<hr><p>
+<img src="scaling-evented-zh-tw.png" alt="事件伺服器（單處理器）" style="max-width:100%;" width="100%"></p>
+
+<hr><p>是否有辦法利用大型伺服器裡那些閒置的 CPU 呢？</p>
+
+<p>對於運行在多核心機器上的其他 Node.js 服務，我們採用了預先分支的 <a target="_blank" href="https://npmjs.org/package/cluster-server">cluster-server</a> 模組，同時運行與 CPU 數量相同的行程：</p>
+
+<hr><p>
+<img src="scaling-cluster-zh-tw.png" alt="事件叢集伺服器（多處理器）" style="max-width:100%;" width="100%"></p>
+
+<hr><p>儘管 EtherCalc 確實能同時運行在多個伺服器上（透過 Redis 作統籌），但在單一伺服器的情形下，<a target="_blank" href="http://stackoverflow.com/a/5749667">Socket.io 叢集</a> 與 <a target="_blank" href="https://github.com/LearnBoost/Socket.IO/wiki/Configuring-Socket.IO">RedisStore</a> 的相互作用會使程式邏輯變得非常複雜，難以偵錯。</p>
+
+<p>此外，如果叢集裡的每個行程都在忙著處理 CPU 運算，新來的連線仍然會被卡住。</p>
+
+<p>因此，我們決定不採用固定數量的預先分支行程，而是設法為伺服器內的每份試算表各創建一個執行緒，從而讓每顆 CPU 平均分攤所有的指令執行工作：</p>
+
+<hr><p>
+<img src="scaling-threads-zh-tw.png" alt="事件執行緒伺服器（多處理器）" style="max-width:100%;" width="100%"></p>
+
+<hr><p>W3C 定義的 <a target="_blank" href="http://www.w3.org/TR/workers/">Web Worker</a> 界面，剛好符合這項需求。它原先是為了瀏覽器環境下，獨立運行的背景執行緒而設計。如此一來，長時間運行的背景任務，便不會影響主執行緒的回應速度。</p>
+
+<p>因此，我寫出了 <a target="_blank" href="https://github.com/audreyt/node-webworker-threads">webworker-threads</a> 這套 Node.js 模組，提供相容於 W3C 標準的跨平台介面。</p>
+
+<p>利用 webworker-threads，可以輕易創建新的 SocialCalc 執行緒（每份試算表約需 30kb 記憶體），並與其進行通信：</p>
+
+<pre><code>{ Worker } = require \webworker-threads
+w = new Worker \packed-SocialCalc.js
+w.onmessage = (event) -&gt; ...
+w.postMessage command
+</code></pre>
+
+<p>這套解決方案堪稱兩全其美：在多核環境下，我們可按照實際需求，分配多顆 CPU 供 EtherCalc 使用。在單核環境下，創建線程也僅需耗用極少的資源，即可將運算移到背景執行。</p>
+
+<h2 id="chi">開發經驗談</h2>
+
+<p>不像 SocialCalc 專案有精準的規格定義及團隊開發流程，EtherCalc 在 2011 年中到 2012 年底的這段時間裡，僅是筆者個人的<a target="_blank" href="http://www.ptt.cc/bbs/Soft_Job/M.1334510537.A.532.html">實驗計劃</a>，用來評估 Node.js 是否足堪正式上線使用。</p>
+
+<p>這樣不受限制的自由度，讓筆者得以嘗試各式各樣的語言、函式庫、演算法及架構。在這裡，我希望能向各位分享這 18 個月來的一些開發經驗。</p>
+
+<h2>
+<a name="-5" class="anchor" href="#-5"><span class="mini-icon mini-icon-link"></span></a>限制帶來解放</h2>
+
+<p>Fred Brooks 在《設計的設計》一書中提到「限制」的重要性：它讓設計者可以縮小搜尋空間、幫助專注並加速設計流程。這也包括了自行加諸的限制：</p>
+
+<blockquote>
+<p>在一個設計任務上加諸人為的限制有個好處，就是設計者日後可以自行放寬這些限制。在理想情況下，這可以引人踏進設計空間中未曾探索過的角落，藉以激發創意。</p>
+</blockquote>
+
+<p>在 EtherCalc 多次更迭的開發過程裡，自行加諸的限制，讓專案得以維持核心概念的完整。</p>
+
+<p>舉例來說，乍看之下，為三種不同的運行架構（內部網路、網際網路、及多用戶託管）各自客製化一套伺服器，似乎是不錯的主意。但是，這種「過早的最佳化」，卻會嚴重干擾核心概念的一致性。</p>
+
+<p>與此相反，我持續專注在如何讓 EtherCalc 在處理器、記憶體及網路同時受限時仍能運作順暢，毋需顧此失彼。事實上，由於對於記憶體的需求小於 100MB，就算是像 Raspberry Pi 這樣的嵌入式平台，都能輕鬆地運行 EtherCalc。</p>
+
+<p>這樣自我要求的設計，讓將 EtherCalc 得以部署在三項資源都受限，而非只限制一項的「平台即服務」環境（例如 DotCloud、Nodejitsu 及 Heroku）下。這讓人們可以輕易地架設試算表服務，進一步促使獨立的整合開發者作出更多貢獻。</p>
+
+<h3>
+<a name="-6" class="anchor" href="#-6"><span class="mini-icon mini-icon-link"></span></a>
+劣即是夯</h3>
+
+<p>在 2006 年於芝加哥舉辦的 YAPC::NA 大會上，筆者受邀對開源社群的未來發表預測，以下是我<a target="_blank" href="http://pugs.blogs.com/pugs/2006/06/my_yapcna_light.html">當時的發言</a>：</p>
+
+<blockquote>
+<p>雖然我無法證明，但我認為明年 JavaScript 2.0 將會達成自舉、編譯回 Javascript 1，並且取代 Ruby，成為各個環境中的明日之星。</p>
+
+<p>我認為 CPAN 與 JSAN 將會整併；JavaScript 會成為所有動態語言的普遍基礎。Perl 將可以編譯成 JavaScript，在瀏覽器、伺服器及資料庫中運行，並共用一套開發工具。</p>
+
+<p>正因為「劣即是夯」的緣故，所以最差勁的語言，注定會成為最棒的。</p>
+</blockquote>
+
+<p>我當時的看法，隨著能以機器碼速度執行的新一代 JavaScript 運算引擎出現，在 2009 年成為現實。到了 2012 年時，JavaScript 已成為「編寫一次，隨處運行」的虛擬機器；其他各式主要語言，包括 <a target="_blank" href="http://perlito.org/">Perl</a>，也都能被編譯成 JavaScript。</p>
+
+<p>除了客戶端的瀏覽器與伺服器端的 Node.js 之外，我們也讓 JavaScript 能在 <a target="_blank" href="http://postgre.st/">Postgres 資料庫內運行</a>，並在這三種運行環境下共用<a target="_blank" href="https://npmjs.org/">模組</a>。</p>
+
+<p>是什麼促成了社群這樣快速的成長？回到我開發 EtherCalc 的初期，參加剛具雛形的 NPM 社群的經驗，我推估這是因為 JavaScript 並不強加特定的世界觀到程式上，而是將自身融入許多不同的用途裡。因此，創新者得以專注於創造字彙與用法（例如 jQuery 與 Node.js），從同一個自由的核心出發，淬煉出自己心目中的「優良部份」。</p>
+
+<p>對新加入的開發者來說，只學到語言的一小部份就可以上手開發；資深的開發者則可以挑戰既有傳統，將它修改演進成為更好的版本。相對於仰賴一群核心團隊將語言設計成適合所有預期的用途，JavaScript 的草根開發演進歷程呼應了 Richard P. Gabriel 著名的<a target="_blank" href="http://www.dreamsongs.com/WorseIsBetter.html">「劣即是夯」</a>概念。</p>
+
+<h3>
+<a name="-7" class="anchor" href="#-7"><span class="mini-icon mini-icon-link"></span></a>舊語新枝</h3>
+
+<p>相對於 <a target="_blank" href="https://metacpan.org/module/Coro::AnyEvent">Coro::AnyEvent</a> 直接了當的 Perl 語法，Node.js 以回喚為基礎的程式介面，迫使我們寫出層層相疊、難以重複利用的內嵌函式。</p>
+
+<p>在嘗試過許多輔助流程控制的程式庫之後，我們最後決定改用 <a target="_blank" href="http://livescript.net/">LiveScript</a> 這套嶄新的程式語言。它的語法深受 Perl 及 Haskell 影響，並且可以直接轉譯成 JavaScript。</p>
+
+<p>事實上，EtherCalc 歷經四種一脈相承的語言：JavaScript、CoffeScript、Coco 與 LiveScript，每次移植都帶來更好的表達力。<a target="_blank" href="http://js2coffee.org/">js2coffee</a> 與 <a target="_blank" href="http://js2ls.org/public/">js2ls</a> 這些自動轉譯工具，也讓程式碼得以保有向前及向後的相容性。</p>
+
+<p>由於 LiveScript 直接編譯成為 JavaScript，用它寫出來的程式可以用原生速度運作，同時也完整支援以函式為範圍的效能分析器。</p>
+
+<p>LiveScript 使用新穎的建構方式，像是 <a target="_blank" href="http://livescript.net/#backcalls">backcall</a> 與 <a target="_blank" href="http://livescript.net/#cascades">cascade</a>，來減少巢狀回喚。它也讓我們得以使用強大的語意工具，來自由組合函數式及物件導向的程式佈局。</p>
+
+<p>我對 LiveScript 的第一印象是「像是蘊含在 Perl 6 裡的輕量語言，掙扎著想要誕生…」 — 透過專注於語法的親和力，並採用與 JavaScript 相同的語意，這個新語言想達成的目標，確實比 Perl 6 要容易多了。</p>
+
+<h3>
+<a name="-8" class="anchor" href="#-8"><span class="mini-icon mini-icon-link"></span></a>自由之零</h3>
+
+<p>自由軟體基金會持續倡導四大類的軟體自由。其中最基本的一種，稱為「自由之零」，就是「無論為任何目的，都能執行程式的自由」。</p>
+
+<p>在二十世紀，開源軟體及私有軟體都賦予使用者這種自由。我們太習慣這種自由，以致認為它理所當然，直到「雲端運算」出現為止。</p>
+
+<p>將資料託管在共享的伺服器上，並不是什麼新的概念。遠端儲存服務的歷史，幾乎跟網際網路一樣悠久，而在持續進步的傳輸與加密技術防範資料遺失及竄改下，它們通常也都能順利運作。</p>
+
+<p>但是到了這個世紀，遠端儲存逐漸與遠端運算及通訊掛勾。一旦我們將運算交給遠端的伺服器，便再也不可能「為任何目的執行程式」了。取而代之的情況，是服務運營者獨占了運算的內容，並擁有不受監管而能檢視、審查使用者資料的權力。</p>
+
+<p>因此，在「日常倚賴的程式都應該能取得源碼」這個眾所周知的理念之外，「只將資料交給我們能信任的伺服器進行運算」也是同等重要。為了達成這個目的，我將 EtherCalc 設計成可以輕易安裝，因此它永遠都能在您自己的電腦上運作。</p>
+
+<p>Socialtext 為了 SocialCalc 試算表的引擎，特別制定了<a target="_blank" href="https://www.socialtext.net/open/cpal">通用公共授權</a>，讓使用者可以向服務運營者要求完整的 JavaScript 源碼，來鼓勵服務運營商將他們所做的修改貢獻出來。</p>
+
+<p>至於 EtherCalc 這套多人協作伺服器，筆者已將它捐入<a target="_blank" href="http://creativecommons.org/publicdomain/zero/1.0">公眾領域</a>，讓它可以整合進各式內容管理系統裡。如此一來，任何人都能輕易為自己的團隊架設一套試算表協作系統。很多人已經這樣做了，也非常歡迎您的加入！</p>
+
+</section>
+<img src="ethercalc.tw.signature.png" alt="唐鳳 Audrey Tang" style="max-width:34%; margin-top: 50px; margin-left: 33%" width="50%"></p>
+</div>
+</div></div></div></div></div><div style="padding:20px 0;min-width:1028px;background-color:#EEEEEE"></div></center></body></html>
