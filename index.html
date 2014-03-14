@@ -707,7 +707,7 @@ open http://tinyurl.com/node0-8-agent
 
 <p>我們在仔細檢查了物件使用情況之後，發現繪製結果幾乎毫無用處，因為伺服器端根本毋需即時顯示 HTML 內容。唯一用到繪製結果的是「匯出 HTML」這個 API，但其實我們可以等到實際有人呼叫它時，再利用記憶體內的試算表結構，繪製出每個單元格的 <code>innerHTML</code> 屬性。</p>
 
-<p>所以，我們移除了 <code>RenderSheet</code> 函式，用 <a target="_blank" href="https://github.com/audreyt/ethercalc/commit/fc62c0eb#L1R97">20 行 LiveScript 代碼</a> 重新實作了匯出 HTML 所需的極少數 DOM 介面，然後再運行了一次效能分析器：</p>
+<p>所以，我們移除了 <code>RenderSheet</code> 函式，用 <a target="_blank" href="https://github.com/audreyt/ethercalc/commit/fc62c0eb#diff-c25a522afcbe1cc8c25cdf066e008670R97">20 行 LiveScript 代碼</a> 重新實作了匯出 HTML 所需的極少數 DOM 介面，然後再運行了一次效能分析器：</p>
 
 <p>
 <img src="profiler-no-jsdom.png" alt="經過更新的效能分析器螢幕截圖（去除 jsdom）" title="ab -n 10000 /_/1/html # 2116rps" style="max-width:100%;" width="100%"></p>
