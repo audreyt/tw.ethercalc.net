@@ -1,4 +1,4 @@
-這是 <http://ethercalc.tw/> 網站的檔案庫。
+這是 <http://tw.ethercalc.net/> 網站的檔案庫。
 
 # CC0 1.0 公眾領域貢獻宣告
 
